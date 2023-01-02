@@ -3,9 +3,9 @@
 #include<iostream>
 
 // add a n times; Complexity: O(n)
-int multiply(int n, int a) {
+int normal_multiply(int n, int a) {
 	if(n == 1) return a;
-	return multiply(n-1, a) + a;
+	return normal_multiply(n-1, a) + a;
 }
 
 #endif

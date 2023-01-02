@@ -60,4 +60,37 @@ int multiply_accumulate_iterative(int r, int n, int a) {
 		a = a + a;
 	}
 }
+
+// since now we have the optimized version of our multiply_accumulate algorithm
+// we can now have this as a helper funcion and call it from our original multiply interface multiply(a,b)
+int multiply(int n, int a) {
+	if(n == 1) return a;
+	return multiply_accumulate_improved_strictly_tail_recursive(a, n-1, a);
+}
+
+// the worst case for above algorithm is when n is even, as n-1 contains all 1 bits
+// so we will avoid this by doing some advance work when n is even 
+// halving it and doubling a unitl n is odd before calling the algorithm
+int multiply_improved_when_n_is_even(int n, int a) {
+	while(!odd(n)) {
+		a = a + a;
+		n = half(n);
+	}
+	if(n == 1) return a;
+	return multiply_accumulate_improved_strictly_tail_recursive(a, n-1, a);
+}
+
+// FINAL VERSION
+// since in the above version we do one unnecessary test for odd(n) in our helper function, 
+// since we are already calling it with an even number
+// so we do one more halving and doubling before calling it, to compensate the no of operations
+int multiply_final(int n, int a) {
+	while(!odd(n)) {
+		a = a + a;
+		n = half(n);
+	}
+	if(n == 1) return a;
+	// even(n-1) => n-1 != 1
+	return multiply_accumulate_improved_strictly_tail_recursive(a, half(n-1), a + a);
+}
 #endif

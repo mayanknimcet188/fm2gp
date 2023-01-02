@@ -1,6 +1,6 @@
 #ifndef STUDENT_HPP
 #define STUDENT_HPP
-
+#include<string>
 // User Defined Type - Student
 class Student {
 	public:
